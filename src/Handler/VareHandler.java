@@ -17,6 +17,7 @@ import model.*;
  * @author Mark
  */
 public class VareHandler {
+
     private static VareHandler vh;
     private DBConnection dbc;
     private ArrayList<Drikkelse> vareListe;
@@ -31,19 +32,19 @@ public class VareHandler {
         rabatList = new ArrayList<>();
         vareListe = new ArrayList<>();
     }
-    
-    public static VareHandler getInstance(){
+
+    public static VareHandler getInstance() {
         if (vh == null) {
             vh = new VareHandler();
         }
         return vh;
     }
-    
-    public ArrayList<TypeRabat> getRabatList(){
+
+    public void getRabatList() {
         rabatList.removeAll(rabatList);
         try {
             ResultSet rs;
-            rs = dbc.getResult("Call getRabatList()");
+            rs = dbc.getResult("select * from TypeRabat;");
             while (rs.next()) {
                 TypeRabat tr = new TypeRabat(rs.getInt("tr_Id"), rs.getInt("tr_PerAntal"), rs.getInt("tr_PrisForAntal"));
                 rabatList.add(tr);
@@ -51,19 +52,21 @@ public class VareHandler {
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
-        return rabatList;
+
     }
-    
-    public ArrayList<Drikkelse> getVareList(){
+
+    public ArrayList<Drikkelse> getVareList() {
         vareListe.removeAll(vareListe);
         TypeRabat tr = null;
+        getRabatList();
         try {
             ResultSet rs;
-            rs = dbc.getResult("Call getProductList();");
+            rs = dbc.getResult("select * from Drikkelse, TypeDrikkelse\n"
+                    + "where Drikkelse.d_Type = TypeDrikkelse.t_Id;");
             System.out.println("1");
             while (rs.next()) {
                 System.out.println("1");
-                for (TypeRabat rabet : getRabatList()) {
+                for (TypeRabat rabet : rabatList) {
                     if (rs.getInt("t_Rabat") == rabet.getId()) {
                         tr = rabet;
                     }
@@ -73,6 +76,7 @@ public class VareHandler {
                 vareListe.add(d);
             }
         } catch (SQLException ex) {
+            Logger.getLogger(VareHandler.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getLocalizedMessage());
         }
         for (Drikkelse vareListe1 : vareListe) {
@@ -80,6 +84,5 @@ public class VareHandler {
         }
         return vareListe;
     }
-    
-    
+
 }

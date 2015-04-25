@@ -29,7 +29,7 @@ public class DBConnection {
     private DBConnection() throws ClassNotFoundException, SQLException {
         this.host = "localhost";
         this.port = "3306";
-        this.dbName = "VandHullet";
+        this.dbName = "vandhullet";
         this.user = "root";
         this.pass = "root";
         this.db = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
@@ -47,6 +47,7 @@ public class DBConnection {
         connect = (Connection) DriverManager.getConnection(db, user, pass);
         state = (Statement) connect.createStatement();
         isConnected = true;
+        System.out.println(isConnected);
         return isConnected;
     }
 

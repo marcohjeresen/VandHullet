@@ -18,14 +18,14 @@ public class VareController {
     private static VareController vc;
     private VareHandler vh;
 
-    private VareController(VareHandler vh) {
+    private VareController() {
         vh = VareHandler.getInstance();
         
     }
     
     public static VareController getInstance(){
         if (vc == null) {
-            vc = new VareController(null);
+            vc = new VareController();
         }
         return vc;
     }
