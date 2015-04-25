@@ -44,13 +44,14 @@ public class VareHandler {
         rabatList.removeAll(rabatList);
         try {
             ResultSet rs;
-            rs = dbc.getResult("select * from TypeRabat;");
+            rs = dbc.getResult("call getProductDiscount()");
             while (rs.next()) {
                 TypeRabat tr = new TypeRabat(rs.getInt("tr_Id"), rs.getInt("tr_PerAntal"), rs.getInt("tr_PrisForAntal"));
                 rabatList.add(tr);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
+            Logger.getLogger(VareHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -61,11 +62,8 @@ public class VareHandler {
         getRabatList();
         try {
             ResultSet rs;
-            rs = dbc.getResult("select * from Drikkelse, TypeDrikkelse\n"
-                    + "where Drikkelse.d_Type = TypeDrikkelse.t_Id;");
-            System.out.println("1");
+            rs = dbc.getResult("call getProductList()");
             while (rs.next()) {
-                System.out.println("1");
                 for (TypeRabat rabet : rabatList) {
                     if (rs.getInt("t_Rabat") == rabet.getId()) {
                         tr = rabet;
@@ -79,9 +77,7 @@ public class VareHandler {
             Logger.getLogger(VareHandler.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getLocalizedMessage());
         }
-        for (Drikkelse vareListe1 : vareListe) {
-            System.out.println(vareListe1.getNavn());
-        }
+
         return vareListe;
     }
 

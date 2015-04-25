@@ -35,10 +35,18 @@ public class VareController {
         int rowDown = 0;
         for (Drikkelse d : vh.getVareList()) {
             VareButton vb = new VareButton(d.getNavn());
-            vb.setLocation(5, (rowDown * vb.getHeight()) + 5);
+            vb.setSize(140, 49);
+            if (rowDown == 8) {
+                rowDown = 0;
+                rowLeft++;
+            }
+            vb.setLocation(10 + (rowLeft * (vb.getWidth() + 5)) , (rowDown * (vb.getHeight()+5)) + 25);
             vb.setVisible(true);
+            
             jp.add(vb);
             jp.revalidate();
+            jp.repaint();
+            rowDown++;
             
         }
     }
