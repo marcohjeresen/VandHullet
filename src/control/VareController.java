@@ -34,8 +34,8 @@ public class VareController {
         int rowLeft = 0;
         int rowDown = 0;
         for (Drikkelse d : vh.getVareList()) {
-            VareButton vb = new VareButton(d.getNavn());
-            vb.setSize(140, 49);
+            VareButton vb = new VareButton(d);
+            vb.setSize(136, 47);
             if (rowDown == 8) {
                 rowDown = 0;
                 rowLeft++;

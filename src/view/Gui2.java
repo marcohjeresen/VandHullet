@@ -5,24 +5,37 @@
  */
 package view;
 
+import control.BasketController;
 import control.VareController;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import util.Listeners;
 
 /**
  *
  * @author Mark
  */
-public class Gui2 extends javax.swing.JFrame {
+public class Gui2 extends javax.swing.JFrame implements ActionListener {
+
+    private CardLayout cl;
     private VareController vc;
+    private BasketController bc;
+    private Listeners listeners;
 
     /**
      * Creates new form Gui2
      */
     public Gui2() {
+        bc = BasketController.getInstance();
+        listeners = Listeners.getList();
         vc = VareController.getInstance();
         initComponents();
-        vc.showVare(jPanel1);
-        jPanel1.repaint();
-        jPanel1.revalidate();
+        vc.showVare(jPVarePanel);
+        listeners.addListener(this);
+
     }
 
     /**
@@ -34,35 +47,65 @@ public class Gui2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPSalg = new javax.swing.JPanel();
+        jPVarePanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPKurvPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Typer"));
+        jPSalg.setLayout(null);
+
+        jPVarePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Vare:"));
+
+        javax.swing.GroupLayout jPVarePanelLayout = new javax.swing.GroupLayout(jPVarePanel);
+        jPVarePanel.setLayout(jPVarePanelLayout);
+        jPVarePanelLayout.setHorizontalGroup(
+            jPVarePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 428, Short.MAX_VALUE)
+        );
+        jPVarePanelLayout.setVerticalGroup(
+            jPVarePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 427, Short.MAX_VALUE)
+        );
+
+        jPSalg.add(jPVarePanel);
+        jPVarePanel.setBounds(0, 0, 440, 450);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Kurv:"));
+
+        jScrollPane1.setBorder(null);
+
+        javax.swing.GroupLayout jPKurvPanelLayout = new javax.swing.GroupLayout(jPKurvPanel);
+        jPKurvPanel.setLayout(jPKurvPanelLayout);
+        jPKurvPanelLayout.setHorizontalGroup(
+            jPKurvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 328, Short.MAX_VALUE)
+        );
+        jPKurvPanelLayout.setVerticalGroup(
+            jPKurvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 197, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPKurvPanel);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 423, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 425, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 340, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPSalg.add(jPanel1);
+        jPanel1.setBounds(440, 0, 340, 220);
+
+        getContentPane().add(jPSalg, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,39 +113,22 @@ public class Gui2 extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gui2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gui2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gui2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gui2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gui2().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPKurvPanel;
+    private javax.swing.JPanel jPSalg;
+    private javax.swing.JPanel jPVarePanel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        switch (ae.getActionCommand()) {
+            case "Tilføjet Til Kurv":
+                bc.showBasket(jPKurvPanel);
+                break;
+
+        }
+    }
 }

@@ -5,19 +5,29 @@
  */
 package view;
 
+import control.BasketController;
 import model.Drikkelse;
+import model.DrikkelseTilSalg;
 
 /**
  *
  * @author Mark
  */
 public class KurvPanel extends javax.swing.JPanel {
+    private BasketController bc;
+    private DrikkelseTilSalg dts;
 
     /**
      * Creates new form KurvPanel
      */
-    public KurvPanel(Drikkelse d) {
+    public KurvPanel(DrikkelseTilSalg d) {
+        this.dts = d;
+        bc = BasketController.getInstance();
         initComponents();
+        jLNavn.setText(dts.getDrikkelse().getNavn());
+        jLANtal.setText(dts.getAntal()+"");
+        jLPris.setText(dts.getPris()+"");
+        
     }
 
     /**
@@ -29,65 +39,63 @@ public class KurvPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jBPlus = new javax.swing.JButton();
+        jBMinus = new javax.swing.JButton();
+        jLNavn = new javax.swing.JLabel();
+        jLANtal = new javax.swing.JLabel();
+        jLPris = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(380, 60));
+        setLayout(null);
 
-        jButton31.setText("+");
+        jBPlus.setText("+");
+        jBPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPlusActionPerformed(evt);
+            }
+        });
+        add(jBPlus);
+        jBPlus.setBounds(2, 0, 50, 40);
 
-        jButton32.setText("-");
+        jBMinus.setText("-");
+        jBMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMinusActionPerformed(evt);
+            }
+        });
+        add(jBMinus);
+        jBMinus.setBounds(60, 0, 50, 40);
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel19.setText("Vand");
+        jLNavn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLNavn.setText("Vand");
+        add(jLNavn);
+        jLNavn.setBounds(120, 0, 117, 40);
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel20.setText("x2");
+        jLANtal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLANtal.setText("x2");
+        add(jLANtal);
+        jLANtal.setBounds(250, 0, 30, 40);
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel21.setText("399 Kr.");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
-        );
+        jLPris.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLPris.setText("399 Kr.");
+        add(jLPris);
+        jLPris.setBounds(290, 0, 60, 40);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPlusActionPerformed
+        bc.basketPlus(dts.getDrikkelse());
+    }//GEN-LAST:event_jBPlusActionPerformed
+
+    private void jBMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMinusActionPerformed
+        bc.basketMinus(dts.getDrikkelse());
+    }//GEN-LAST:event_jBMinusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
+    private javax.swing.JButton jBMinus;
+    private javax.swing.JButton jBPlus;
+    private javax.swing.JLabel jLANtal;
+    private javax.swing.JLabel jLNavn;
+    private javax.swing.JLabel jLPris;
     // End of variables declaration//GEN-END:variables
 }

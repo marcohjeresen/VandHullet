@@ -5,18 +5,25 @@
  */
 package view;
 
+import control.BasketController;
+import model.Drikkelse;
+
 /**
  *
  * @author Mark
  */
 public class VareButton extends javax.swing.JPanel {
+    private BasketController bc;
+    private Drikkelse d;
 
     /**
      * Creates new form VareButton
      */
-    public VareButton(String name) {
+    public VareButton(Drikkelse d) {
+        bc = BasketController.getInstance();
+        this.d = d;
         initComponents();
-        jButton1.setText(name);
+        jButton1.setText(d.getNavn());
     }
 
     /**
@@ -31,6 +38,11 @@ public class VareButton extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -43,6 +55,10 @@ public class VareButton extends javax.swing.JPanel {
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        bc.addToBasket(d);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
